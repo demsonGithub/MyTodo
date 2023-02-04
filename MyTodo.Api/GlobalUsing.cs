@@ -1,0 +1,13 @@
+﻿global using MyTodo.Api.Infratructure.Repository.Base;
+global using MyTodo.Api.Infratructure.Repository;
+global using MyTodo.Api.Models.Entities;
+global using MyTodo.Api.Domin.IRepository;
+global using AutoMapper;
+global using Microsoft.EntityFrameworkCore;
+global using MyTodo.Api.Repository;
+global using MyTodo.Api.Domain.IRepository;
+global using MyTodo.Api.Shared.ApiResultModel;
+global using MediatR;
+global using MyTodo.Api.Application.Commands;
+global using MyTodo.Api.Shared.Dtos;
+global using MyTodo.Api.Application.Queries;
