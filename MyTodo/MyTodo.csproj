@@ -27,10 +27,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MyTodo.Shared\MyTodo.Shared.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Resource Include="Images\user.jpg" />
   </ItemGroup>
 

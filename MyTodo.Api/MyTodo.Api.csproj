@@ -27,12 +27,4 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Infratructure\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\MyTodo.Shared\MyTodo.Shared.csproj" />
-  </ItemGroup>
-
 </Project>

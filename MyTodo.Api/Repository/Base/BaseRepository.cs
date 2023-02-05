@@ -26,7 +26,7 @@ namespace MyTodo.Api.Repository
 
         public async Task<IEnumerable<TEntity>> GetListAsync(int pageNum, int pageSize, Expression<Func<TEntity, bool>> predicate)
         {
-            int currentPage = pageNum + 1;
+            int currentPage = pageNum - 1;
 
             var query = _dbContext.Set<TEntity>().AsNoTracking().Where(predicate).Skip(currentPage * pageSize).Take(pageSize);
 

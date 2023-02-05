@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace MyTodo.Api.Application.Queries
 {
-    public class GetListTodoQueryHandler : IRequestHandler<GetListTodoQuery, List<TodoDto>>
+    public class GetListTodoQueryHandler : IRequestHandler<GetListTodoQuery, PageResult<TodoDto>>
     {
         private readonly IMapper _mapper;
         private readonly ITodoRepository _todoRepository;
@@ -16,13 +16,18 @@ namespace MyTodo.Api.Application.Queries
             _todoRepository = todoRepository;
         }
 
-        public async Task<List<TodoDto>> Handle(GetListTodoQuery request, CancellationToken cancellationToken)
+        public async Task<PageResult<TodoDto>> Handle(GetListTodoQuery request, CancellationToken cancellationToken)
         {
-            var todolist = await _todoRepository.GetListAsync(i => EF.Functions.Like(i.Title, $"%{request.Keywords}%"));
+            int pageNum = request.PageNum;
+            int pageSize = request.PageSize;
+
+            var todolist = await _todoRepository.GetListAsync(pageNum, pageSize, i => EF.Functions.Like(i.Title, $"%{request.Keywords}%"));
 
             var todoDtolist = _mapper.Map<List<TodoDto>>(todolist);
 
-            return todoDtolist;
+            var result = new PageResult<TodoDto>(pageNum, pageSize, 100, todoDtolist);
+
+            return result;
         }
     }
 }

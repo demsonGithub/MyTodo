@@ -16,7 +16,7 @@ namespace MyTodo.Api.Application.Queries
 
         public async Task<List<MemoDto>> Handle(GetListMemoQuery request, CancellationToken cancellationToken)
         {
-            var memolist = await _memoRepository.GetListAsync(i => EF.Functions.Like(i.Title, $"%{request.Keywords}%"));
+            var memolist = await _memoRepository.GetListAsync(request.PageIndex, request.PageSize, i => EF.Functions.Like(i.Title, $"%{request.Keywords}%"));
 
             var memoDtolist = _mapper.Map<List<MemoDto>>(memolist);
 

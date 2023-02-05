@@ -1,5 +1,5 @@
-﻿using MyTodo.Api.Shared.Dtos;
-using MyTodo.Shared.ApiResultModel;
+﻿using MyTodo.Common.Models;
+using MyTodo.Common.Models.ApiResultModel;
 using RestSharp;
 using System;
 using System.Collections.Generic;
@@ -11,16 +11,27 @@ namespace MyTodo.Service
 {
     public class TodoService : ITodoService
     {
-        public Task<TodoDto> Get(int id)
+        private IHttpService _httpService;
+
+        public TodoService()
         {
-            var request = new HttpRestRequest();
-            request.Method = Method.Get;
-            request.Route = $"http://localhost:5212/api/Todo/GetTodo";
+            _httpService = new HttpRestSharpService(new RestClient());
         }
 
-        public Task<PageResult<TodoDto>> GetListAsync(int pageNum, int pageSize, string keywords)
+        public async Task<TodoDto> GetAsync(int id)
         {
-            throw new NotImplementedException();
+            return null;
+        }
+
+        public async Task<PageResult<TodoDto>> GetListAsync(int pageNum, int pageSize, string keywords = "")
+        {
+            var baseUrl = "http://localhost:5212";
+
+            var requestUrl = baseUrl + $"/api/todo/GetListTodo?PageNum={pageNum}&PageSize={pageSize}&Keywords={keywords}";
+
+            var result = await _httpService.GetAsync<ApiResult<PageResult<TodoDto>>>(requestUrl);
+
+            return result.data;
         }
     }
 }

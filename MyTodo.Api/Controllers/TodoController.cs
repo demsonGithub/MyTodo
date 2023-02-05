@@ -27,10 +27,10 @@ namespace MyTodo.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ApiResult<List<TodoDto>>> GetListTodo([FromQuery] GetListTodoQuery query)
+        public async Task<ApiResult<PageResult<TodoDto>>> GetListTodo([FromQuery] GetListTodoQuery query)
         {
             var result = await _mediator.Send(query, HttpContext.RequestAborted);
-            return ApiResult<List<TodoDto>>.Success(result);
+            return ApiResult<PageResult<TodoDto>>.Success(result);
         }
 
         [HttpPost]

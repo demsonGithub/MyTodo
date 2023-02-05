@@ -1,4 +1,6 @@
-﻿using MyTodo.Common.Models;
+﻿using ImTools;
+using MyTodo.Common.Models;
+using MyTodo.Service;
 using Prism.Commands;
 using Prism.Mvvm;
 using System;
@@ -36,7 +38,8 @@ namespace MyTodo.ViewModels
         {
             TodoDtos = new ObservableCollection<TodoDto>();
             AddTodoCommand = new DelegateCommand(Add);
-            CreateMockData();
+            //CreateMockData();
+            InitData();
         }
 
         /// <summary>
@@ -45,6 +48,17 @@ namespace MyTodo.ViewModels
         private void Add()
         {
             IsRightDrawerOpen = true;
+        }
+
+        private async void InitData()
+        {
+            ITodoService service = new TodoService();
+            var todoDtoList = await service.GetListAsync(1, 10);
+
+            foreach (var item in todoDtoList.DataList)
+            {
+                TodoDtos.Add(item);
+            }
         }
 
         private void CreateMockData()

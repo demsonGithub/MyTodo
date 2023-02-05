@@ -1,6 +1,5 @@
-﻿using MyTodo.Api.Shared.ApiResultModel;
-using MyTodo.Api.Shared.Dtos;
-using MyTodo.Shared.ApiResultModel;
+﻿using MyTodo.Common.Models;
+using MyTodo.Common.Models.ApiResultModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +10,8 @@ namespace MyTodo.Service
 {
     public interface ITodoService
     {
-        Task<TodoDto> Get(int id);
+        Task<TodoDto> GetAsync(int id);
 
-        Task<PageResult<TodoDto>> GetListAsync(int pageNum, int pageSize, string keywords);
+        Task<PageResult<TodoDto>> GetListAsync(int pageNum, int pageSize, string keywords = "");
     }
 }
