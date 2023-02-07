@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MyTodo.ViewModels
@@ -43,10 +44,10 @@ namespace MyTodo.ViewModels
         public TodoDto CurrentDto
         {
             get { return _currentDto; }
-            set { _currentDto = value; }
+            set { _currentDto = value; RaisePropertyChanged(); }
         }
 
-        public DelegateCommand AddTodoCommand { get; private set; }
+        public DelegateCommand<string> ExecuteCommand { get; private set; }
 
         public DelegateCommand<TodoDto> SelectedCommand { get; private set; }
 
@@ -55,8 +56,25 @@ namespace MyTodo.ViewModels
             _todoService = todoService;
 
             TodoDtos = new ObservableCollection<TodoDto>();
-            AddTodoCommand = new DelegateCommand(Add);
+            ExecuteCommand = new DelegateCommand<string>(Execute);
             SelectedCommand = new DelegateCommand<TodoDto>(Selected);
+        }
+
+        private void Execute(string cmdType)
+        {
+            switch (cmdType)
+            {
+                case "新增":
+                    Add();
+                    break;
+
+                case "保存":
+                    Save();
+                    break;
+
+                default:
+                    break;
+            }
         }
 
         /// <summary>
@@ -64,7 +82,38 @@ namespace MyTodo.ViewModels
         /// </summary>
         private void Add()
         {
+            CurrentDto = new TodoDto();
             IsRightDrawerOpen = true;
+        }
+
+        private async void Save()
+        {
+            if (string.IsNullOrWhiteSpace(CurrentDto.Title) ||
+                string.IsNullOrWhiteSpace(CurrentDto.Content))
+                return;
+
+            WaitLoading(true);
+            try
+            {
+                if (CurrentDto.Id > 0)
+                {
+                    // 修改
+                }
+                else
+                {
+                    // 新增
+                    var todoDto = await _todoService.AddAsync(CurrentDto);
+                    TodoDtos.Add(todoDto);
+                    IsRightDrawerOpen = false;
+                }
+            }
+            catch
+            {
+            }
+            finally
+            {
+                WaitLoading(false);
+            }
         }
 
         private async void Selected(TodoDto todoDto)

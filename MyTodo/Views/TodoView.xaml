@@ -14,16 +14,30 @@
                 <DockPanel Width="300">
                     <TextBlock Text="添加待办"  FontSize="20" FontWeight="Bold" Padding="20,10" DockPanel.Dock="Top" />
 
-                    <StackPanel Orientation="Horizontal" Margin="20" DockPanel.Dock="Top">
+                    <StackPanel
+                        Margin="20"
+                        DockPanel.Dock="Top"
+                        Orientation="Horizontal">
                         <TextBlock VerticalAlignment="Center" Text="状态：" />
-                        <ComboBox SelectedIndex="0">
+                        <ComboBox SelectedIndex="{Binding CurrentDto.Status}">
                             <ComboBoxItem>待办</ComboBoxItem>
                             <ComboBoxItem>已完成</ComboBoxItem>
                         </ComboBox>
                     </StackPanel>
-                    <TextBox Text="" Margin="20,0" md:HintAssist.Hint="请输入待办概要" DockPanel.Dock="Top" />
-                    <TextBox Text="" Margin="20" MinHeight="100" md:HintAssist.Hint="请输入待办内容" DockPanel.Dock="Top" />
-                    <Button Content="添加到待办" Margin="20,0" DockPanel.Dock="Top" />
+                    <TextBox Text="{Binding CurrentDto.Title}"
+                        Margin="20,0"
+                        md:HintAssist.Hint="请输入待办概要"
+                        DockPanel.Dock="Top" />
+                    <TextBox  Text="{Binding CurrentDto.Content}"
+                        MinHeight="100"
+                        Margin="20"
+                        md:HintAssist.Hint="请输入待办内容"
+                        DockPanel.Dock="Top" />
+                    <Button Command="{Binding ExecuteCommand}"
+                            CommandParameter="保存"
+                        Margin="20,0"
+                        Content="添加到待办"
+                        DockPanel.Dock="Top" />
                 </DockPanel>
             </md:DrawerHost.RightDrawerContent>
 
@@ -42,7 +56,7 @@
                         <ComboBoxItem>已完成</ComboBoxItem>
                     </ComboBox>
                 </StackPanel>
-                <Button Margin="10,5" HorizontalAlignment="Right" Content="+ 添加待办" Command="{Binding AddTodoCommand}" />
+                <Button Margin="10,5" HorizontalAlignment="Right" Content="+ 添加待办" Command="{Binding ExecuteCommand}" CommandParameter="新增" />
 
                 <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Hidden">
 

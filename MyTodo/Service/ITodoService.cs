@@ -13,5 +13,7 @@ namespace MyTodo.Service
         Task<TodoDto> GetAsync(int id);
 
         Task<PageResult<TodoDto>> GetListAsync(int pageNum, int pageSize, string keywords = "");
+
+        Task<TodoDto> AddAsync(TodoDto dto);
     }
 }
