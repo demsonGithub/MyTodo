@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MyTodo.Extensions;
+using Prism.Events;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +21,24 @@ namespace MyTodo.Views
     /// </summary>
     public partial class MainView : Window
     {
-        public MainView()
+        public MainView(IEventAggregator aggregator)
         {
             InitializeComponent();
+
+            // 注册等待消息的窗口
+            InitEvent(aggregator);
+        }
+
+        private void InitEvent(IEventAggregator aggregator)
+        {
+            aggregator.RegisterWaitLoading(args =>
+            {
+                DialogHost.IsOpen = args.IsOpen;
+                if (DialogHost.IsOpen)
+                {
+                    DialogHost.DialogContent = new WaitLoadingView();
+                }
+            });
 
             btnMin.Click += (sender, e) =>
             {

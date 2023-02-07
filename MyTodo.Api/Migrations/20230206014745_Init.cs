@@ -36,6 +36,21 @@ namespace MyTodo.Api.Migrations
                 {
                     table.PrimaryKey("PK_Todo", x => x.Id);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "User",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    UserName = table.Column<string>(type: "TEXT", nullable: false),
+                    Account = table.Column<string>(type: "TEXT", nullable: false),
+                    Password = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_User", x => x.Id);
+                });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -45,6 +60,9 @@ namespace MyTodo.Api.Migrations
 
             migrationBuilder.DropTable(
                 name: "Todo");
+
+            migrationBuilder.DropTable(
+                name: "User");
         }
     }
 }

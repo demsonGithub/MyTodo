@@ -1,4 +1,5 @@
-﻿using MyTodo.Common.Models;
+﻿using MyTodo.Common.Constants;
+using MyTodo.Common.Models;
 using MyTodo.Common.Models.ApiResultModel;
 using RestSharp;
 using System;
@@ -20,14 +21,16 @@ namespace MyTodo.Service
 
         public async Task<TodoDto> GetAsync(int id)
         {
-            return null;
+            var requestUrl = Settings.ApiBaseUrl + $"/api/todo/GetTodo?Id={id}";
+
+            var result = await _httpService.GetAsync<ApiResult<TodoDto>>(requestUrl);
+
+            return result.data;
         }
 
         public async Task<PageResult<TodoDto>> GetListAsync(int pageNum, int pageSize, string keywords = "")
         {
-            var baseUrl = "http://localhost:5212";
-
-            var requestUrl = baseUrl + $"/api/todo/GetListTodo?PageNum={pageNum}&PageSize={pageSize}&Keywords={keywords}";
+            var requestUrl = Settings.ApiBaseUrl + $"/api/todo/GetListTodo?PageNum={pageNum}&PageSize={pageSize}&Keywords={keywords}";
 
             var result = await _httpService.GetAsync<ApiResult<PageResult<TodoDto>>>(requestUrl);
 

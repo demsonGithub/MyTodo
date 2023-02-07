@@ -1,4 +1,5 @@
-﻿using MyTodo.ViewModels;
+﻿using MyTodo.Service;
+using MyTodo.ViewModels;
 using MyTodo.Views;
 using Prism.DryIoc;
 using Prism.Ioc;
@@ -24,6 +25,8 @@ namespace MyTodo
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.Register<ITodoService, TodoService>();
+
             // 首页
             containerRegistry.RegisterForNavigation<IndexView, IndexViewModel>();
             containerRegistry.RegisterForNavigation<TodoView, TodoViewModel>();

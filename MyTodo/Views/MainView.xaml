@@ -21,7 +21,7 @@
         AllowsTransparency="True"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen">
-    <materialDesign:DialogHost DialogTheme="Inherit"
+    <materialDesign:DialogHost x:Name="DialogHost" DialogTheme="Inherit"
                              Identifier="RootDialog">
 
         <materialDesign:DrawerHost x:Name="drawerHost" IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
@@ -47,11 +47,10 @@
                         <ListBox.ItemTemplate>
                             <DataTemplate>
 
-                                    <StackPanel Orientation="Horizontal">
+                                <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon Margin="15,0" Kind="{Binding Icon}" />
                                     <TextBlock Margin="10,0" Text="{Binding Title}" />
                                 </StackPanel>
-
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>

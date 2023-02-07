@@ -16,6 +16,7 @@ namespace MyTodo.Api.Infratructure.Repository
         {
             modelBuilder.ApplyConfiguration(new TodoConfiguration());
             modelBuilder.ApplyConfiguration(new MemoConfiguration());
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
         }
     }
 }

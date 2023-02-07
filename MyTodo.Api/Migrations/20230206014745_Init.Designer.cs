@@ -10,13 +10,36 @@ using MyTodo.Api.Infratructure.Repository;
 namespace MyTodo.Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230204015442_Init")]
+    [Migration("20230206014745_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.13");
+
+            modelBuilder.Entity("MyTodo.Api.Domain.Entities.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Account")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("User", (string)null);
+                });
 
             modelBuilder.Entity("MyTodo.Api.Models.Entities.Memo", b =>
                 {
