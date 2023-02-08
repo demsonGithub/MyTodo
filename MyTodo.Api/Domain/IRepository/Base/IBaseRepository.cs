@@ -12,7 +12,7 @@ namespace MyTodo.Api.Domin.IRepository
 
         Task<TEntity> AddAsync(TEntity entity);
 
-        Task UpdateAsync(TEntity entity);
+        Task<TEntity> UpdateAsync(TEntity entity);
 
         Task DeleteAsync(int id);
     }

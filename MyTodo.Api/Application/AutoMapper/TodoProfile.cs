@@ -4,7 +4,7 @@
     {
         public TodoProfile()
         {
-            CreateMap<Todo, TodoDto>();
+            CreateMap<Todo, TodoDetailDto>();
         }
     }
 }

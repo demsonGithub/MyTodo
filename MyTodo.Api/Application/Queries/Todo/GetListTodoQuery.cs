@@ -2,7 +2,7 @@
 
 namespace MyTodo.Api.Application.Queries
 {
-    public class GetListTodoQuery : IRequest<PageResult<TodoDto>>
+    public class GetListTodoQuery : IRequest<PageResult<TodoDetailDto>>
     {
         public int PageNum { get; set; }
 

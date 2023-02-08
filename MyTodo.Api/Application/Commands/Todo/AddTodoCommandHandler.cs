@@ -3,16 +3,18 @@ using System.Threading.Tasks;
 
 namespace MyTodo.Api.Application.Commands
 {
-    public class AddTodoCommandHandler : IRequestHandler<AddTodoCommand, int>
+    public class AddTodoCommandHandler : IRequestHandler<AddTodoCommand, TodoDetailDto>
     {
+        private readonly IMapper _mapper;
         private readonly ITodoRepository _todoRepository;
 
-        public AddTodoCommandHandler(ITodoRepository todoRepository)
+        public AddTodoCommandHandler(IMapper mapper, ITodoRepository todoRepository)
         {
+            _mapper = mapper;
             _todoRepository = todoRepository;
         }
 
-        public async Task<int> Handle(AddTodoCommand request, CancellationToken cancellationToken)
+        public async Task<TodoDetailDto> Handle(AddTodoCommand request, CancellationToken cancellationToken)
         {
             string title = request.Title;
             string content = request.Content;
@@ -24,7 +26,9 @@ namespace MyTodo.Api.Application.Commands
 
             await _todoRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
 
-            return entity.Id;
+            var result = _mapper.Map<TodoDetailDto>(entity);
+
+            return result;
         }
     }
 }

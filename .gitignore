@@ -389,3 +389,6 @@ FodyWeavers.xsd
 
 #测试文件
 **/.publish/*
+
+*.db-shm
+*.db-wal

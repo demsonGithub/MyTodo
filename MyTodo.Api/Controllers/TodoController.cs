@@ -20,24 +20,24 @@ namespace MyTodo.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ApiResult<TodoDto>> GetTodo([FromQuery] GetTodoQuery query)
+        public async Task<ApiResult<TodoDetailDto>> GetTodoDetail([FromQuery] GetTodoDetailQuery query)
         {
             var result = await _mediator.Send(query, HttpContext.RequestAborted);
-            return ApiResult<TodoDto>.Success(result);
+            return ApiResult<TodoDetailDto>.Success(result);
         }
 
         [HttpGet]
-        public async Task<ApiResult<PageResult<TodoDto>>> GetListTodo([FromQuery] GetListTodoQuery query)
+        public async Task<ApiResult<PageResult<TodoDetailDto>>> GetListTodo([FromQuery] GetListTodoQuery query)
         {
             var result = await _mediator.Send(query, HttpContext.RequestAborted);
-            return ApiResult<PageResult<TodoDto>>.Success(result);
+            return ApiResult<PageResult<TodoDetailDto>>.Success(result);
         }
 
         [HttpPost]
-        public async Task<ApiResult<int>> AddTodo([FromBody] AddTodoCommand command)
+        public async Task<ApiResult<TodoDetailDto>> AddTodo([FromBody] AddTodoCommand command)
         {
             var result = await _mediator.Send(command, HttpContext.RequestAborted);
-            return ApiResult<int>.Success(result);
+            return ApiResult<TodoDetailDto>.Success(result);
         }
 
         [HttpPost]

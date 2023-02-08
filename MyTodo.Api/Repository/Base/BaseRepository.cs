@@ -50,10 +50,10 @@ namespace MyTodo.Api.Repository
             }
         }
 
-        public Task UpdateAsync(TEntity entity)
+        public Task<TEntity> UpdateAsync(TEntity entity)
         {
-            _dbContext.Set<TEntity>().Update(entity);
-            return Task.CompletedTask;
+            var result = _dbContext.Set<TEntity>().Update(entity);
+            return Task.FromResult(result.Entity);
         }
     }
 }

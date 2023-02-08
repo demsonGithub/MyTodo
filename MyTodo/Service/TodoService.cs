@@ -22,7 +22,7 @@ namespace MyTodo.Service
 
         public async Task<TodoDto> GetAsync(int id)
         {
-            var requestUrl = Settings.ApiBaseUrl + $"/api/todo/GetTodo?Id={id}";
+            var requestUrl = Settings.ApiBaseUrl + $"/api/todo/GetTodoDetail?Id={id}";
 
             var result = await _httpService.GetAsync<ApiResult<TodoDto>>(requestUrl);
 
