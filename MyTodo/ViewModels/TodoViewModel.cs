@@ -98,6 +98,13 @@ namespace MyTodo.ViewModels
                 if (CurrentDto.Id > 0)
                 {
                     // 修改
+                    var todoDto = await _todoService.UpdateAsync(CurrentDto);
+
+                    var target = TodoDtos.FirstOrDefault(x => x.Id == todoDto.Id);
+
+                    target = todoDto;
+
+                    IsRightDrawerOpen = false;
                 }
                 else
                 {
@@ -134,6 +141,7 @@ namespace MyTodo.ViewModels
         private async void GetDataAsync()
         {
             WaitLoading(true);
+            TodoDtos.Clear();
 
             var todoDtoList = await _todoService.GetListAsync(1, 20);
 

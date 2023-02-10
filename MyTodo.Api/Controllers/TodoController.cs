@@ -23,6 +23,7 @@ namespace MyTodo.Api.Controllers
         public async Task<ApiResult<TodoDetailDto>> GetTodoDetail([FromQuery] GetTodoDetailQuery query)
         {
             var result = await _mediator.Send(query, HttpContext.RequestAborted);
+
             return ApiResult<TodoDetailDto>.Success(result);
         }
 
@@ -41,10 +42,10 @@ namespace MyTodo.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ApiResult> UpdateTodo([FromBody] UpdateTodoCommand command)
+        public async Task<ApiResult<TodoDetailDto>> UpdateTodo([FromBody] UpdateTodoCommand command)
         {
             var result = await _mediator.Send(command, HttpContext.RequestAborted);
-            return result ? ApiResult.Success() : ApiResult.Error("修改失败");
+            return ApiResult<TodoDetailDto>.Success(result);
         }
 
         [HttpPost]

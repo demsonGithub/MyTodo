@@ -10,7 +10,7 @@ using MyTodo.Api.Infratructure.Repository;
 namespace MyTodo.Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230206014745_Init")]
+    [Migration("20230210133823_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

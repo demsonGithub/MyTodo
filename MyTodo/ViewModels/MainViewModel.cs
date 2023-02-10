@@ -1,5 +1,6 @@
 ﻿using MyTodo.Common.Models;
 using MyTodo.Extensions;
+using MyTodo.Views;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
@@ -32,6 +33,8 @@ namespace MyTodo.ViewModels
                 if (_journal != null && _journal.CanGoForward)
                     _journal.GoForward();
             });
+
+            _regionManager.RegisterViewWithRegion(PrismManager.MainViewRegionName, typeof(IndexView));
         }
 
         private readonly IRegionManager _regionManager;

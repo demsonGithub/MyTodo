@@ -1,6 +1,6 @@
 ﻿namespace MyTodo.Api.Application.Commands
 {
-    public class UpdateTodoCommand : IRequest<bool>
+    public class UpdateTodoCommand : IRequest<TodoDetailDto>
     {
         public int Id { get; set; }
 

@@ -26,7 +26,7 @@ namespace MyTodo.Service
 
             var result = await _httpService.GetAsync<ApiResult<TodoDto>>(requestUrl);
 
-            return result.data;
+            return result?.data;
         }
 
         public async Task<PageResult<TodoDto>> GetListAsync(int pageNum, int pageSize, string keywords = "")
@@ -35,7 +35,7 @@ namespace MyTodo.Service
 
             var result = await _httpService.GetAsync<ApiResult<PageResult<TodoDto>>>(requestUrl);
 
-            return result.data;
+            return result?.data;
         }
 
         public async Task<TodoDto> AddAsync(TodoDto dto)
@@ -44,6 +44,23 @@ namespace MyTodo.Service
 
             var parameter = new
             {
+                Title = dto.Title,
+                Content = dto.Content,
+                Status = dto.Status,
+            };
+
+            var result = await _httpService.PostAsync<ApiResult<TodoDto>>(requestUrl, parameter);
+
+            return result.data;
+        }
+
+        public async Task<TodoDto> UpdateAsync(TodoDto dto)
+        {
+            var requestUrl = Settings.ApiBaseUrl + $"/api/todo/UpdateTodo";
+
+            var parameter = new
+            {
+                Id = dto.Id,
                 Title = dto.Title,
                 Content = dto.Content,
                 Status = dto.Status,

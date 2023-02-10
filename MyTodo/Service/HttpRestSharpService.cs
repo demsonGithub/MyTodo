@@ -90,13 +90,21 @@ namespace MyTodo.Service
             {
                 return default(T);
             }
-
             JsonSerializerOptions jsonSerializerOptions = new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true
             };
-            //   jsonSerializerOptions.Converters.Add(new DateTimeConverterUsingDateTimeParse());
-            return JsonSerializer.Deserialize<T>(json, jsonSerializerOptions);
+            try
+            {
+                //   jsonSerializerOptions.Converters.Add(new DateTimeConverterUsingDateTimeParse());
+                var result = JsonSerializer.Deserialize<T>(json, jsonSerializerOptions);
+
+                return result;
+            }
+            catch (Exception)
+            {
+                return default(T);
+            }
         }
     }
 }
