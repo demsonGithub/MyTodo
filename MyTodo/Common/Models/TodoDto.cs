@@ -18,19 +18,19 @@ namespace MyTodo.Common.Models
         public string Title
         {
             get { return _title; }
-            set { _title = value; }
+            set { _title = value; RaisePropertyChanged(); }
         }
 
         public string Content
         {
             get { return _content; }
-            set { _content = value; }
+            set { _content = value;RaisePropertyChanged(); }
         }
 
         public int Status
         {
             get { return _status; }
-            set { _status = value; }
+            set { _status = value; RaisePropertyChanged(); }
         }
     }
 }

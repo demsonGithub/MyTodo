@@ -60,7 +60,7 @@
 
                 <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Hidden">
 
-                    <ItemsControl ItemsSource="{Binding TodoDtos}" HorizontalAlignment="Center">
+                    <ItemsControl ItemsSource="{Binding TodoDtos}" HorizontalAlignment="Left">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel />
@@ -88,7 +88,9 @@
                                     <TextBlock Text="{Binding Content}" Grid.Row="1" Padding="10,5" />
 
                                     <md:PopupBox HorizontalAlignment="Right" Panel.ZIndex="1">
-                                        <Button Content="删除" />
+                                        <Button Content="删除"
+                                                Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ItemsControl}}"
+                                                CommandParameter="{Binding}" />
                                     </md:PopupBox>
 
                                     <Canvas Grid.RowSpan="2" ClipToBounds="True">

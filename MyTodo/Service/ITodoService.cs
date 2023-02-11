@@ -17,5 +17,7 @@ namespace MyTodo.Service
         Task<TodoDto> AddAsync(TodoDto dto);
 
         Task<TodoDto> UpdateAsync(TodoDto dto);
+
+        Task DeleteAsync(int id);
     }
 }

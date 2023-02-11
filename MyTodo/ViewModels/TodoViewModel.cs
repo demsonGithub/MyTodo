@@ -48,8 +48,8 @@ namespace MyTodo.ViewModels
         }
 
         public DelegateCommand<string> ExecuteCommand { get; private set; }
-
         public DelegateCommand<TodoDto> SelectedCommand { get; private set; }
+        public DelegateCommand<TodoDto> DeleteCommand { get; private set; }
 
         public TodoViewModel(IContainerProvider containerProvider, ITodoService todoService) : base(containerProvider)
         {
@@ -58,6 +58,7 @@ namespace MyTodo.ViewModels
             TodoDtos = new ObservableCollection<TodoDto>();
             ExecuteCommand = new DelegateCommand<string>(Execute);
             SelectedCommand = new DelegateCommand<TodoDto>(Selected);
+            DeleteCommand = new DelegateCommand<TodoDto>(Delete);
         }
 
         private void Execute(string cmdType)
@@ -101,9 +102,12 @@ namespace MyTodo.ViewModels
                     var todoDto = await _todoService.UpdateAsync(CurrentDto);
 
                     var target = TodoDtos.FirstOrDefault(x => x.Id == todoDto.Id);
-
-                    target = todoDto;
-
+                    if (target != null)
+                    {
+                        target.Title = CurrentDto.Title;
+                        target.Content = CurrentDto.Content;
+                        target.Status = CurrentDto.Status;
+                    }
                     IsRightDrawerOpen = false;
                 }
                 else
@@ -129,6 +133,12 @@ namespace MyTodo.ViewModels
 
             CurrentDto = todoResult;
             IsRightDrawerOpen = true;
+        }
+
+        private async void Delete(TodoDto obj)
+        {
+            await _todoService.DeleteAsync(obj.Id);
+            TodoDtos.Remove(obj);
         }
 
         public override void OnNavigatedTo(NavigationContext navigationContext)

@@ -70,5 +70,17 @@ namespace MyTodo.Service
 
             return result.data;
         }
+
+        public async Task DeleteAsync(int id)
+        {
+            var requestUrl = Settings.ApiBaseUrl + $"/api/todo/DeleteTodo";
+
+            var parameter = new
+            {
+                Id = id,
+            };
+
+            var result = await _httpService.PostAsync<ApiResult<string>>(requestUrl, parameter);
+        }
     }
 }
